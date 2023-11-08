@@ -17,19 +17,33 @@ def read_config():
         return yaml.safe_load(file)
 
 
-async def message_handler(update, context):
+async def process_full_message_triggers(update):
     text = update.message.text
-    logging.info(text)
-    pattern_with_optinal_punctuation = "{}([!?.,;:\"'])*$"
-
+    pattern_with_optional_punctuation = "{}([!?.,;:\"'])*$"
     with open('triggers_and_replies.csv', 'r', encoding='utf-8') as file:
         reader = csv.reader(file)
         for row in reader:
             trigger = row[0]
-            pattern = pattern_with_optinal_punctuation.format(trigger)
+            pattern = pattern_with_optional_punctuation.format(trigger)
             if re.match(pattern, text, re.IGNORECASE):
                 reply = row[1]
                 await update.message.reply_text(text=reply, quote=True)
+
+
+async def process_snippet_message_triggers(update):
+    text = update.message.text
+    with open('trigger_words.csv', 'r', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            trigger = row[0]
+            if trigger in text:
+                reply = row[1]
+                await update.message.reply_text(text=reply, quote=True)
+
+
+async def message_handler(update, context):
+    await process_full_message_triggers(update)
+    await process_snippet_message_triggers(update)
 
 
 def main():
