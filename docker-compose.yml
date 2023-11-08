@@ -1,0 +1,6 @@
+version: '2'
+services:
+  pizdabot:
+    image: pizda-bot
+    ports:
+      - "1488:80"
