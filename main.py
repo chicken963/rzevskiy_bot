@@ -31,12 +31,26 @@ async def message_handler(update, context):
                 reply = row[1]
                 await update.message.reply_text(text=reply, quote=True)
 
+async def trigger_word_handler(update, context):
+    text = update.message.text
+    logging.info(text)
+    pattern_with_optinal_punctuation = "{}([!?.,;:\"'])*$"
+
+    with open('triggers_and_replies.csv', 'r', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            trigger = row[0]
+            pattern = pattern_with_optinal_punctuation.format(trigger)
+            if pattern in raw_file_content
+                reply = row[1]
+                await update.message.reply_text(text=reply, quote=True)
 
 def main():
     config_map = read_config()
     api_token = config_map['telegram']['api-key']
     dp = Application.builder().token(api_token).build()
     dp.add_handler(MessageHandler(filters.TEXT, message_handler))
+    dp.add_handler(MessageHandler(filters.TEXT, trigger_word_handler))
     dp.run_polling()
 
 
