@@ -1,5 +1,5 @@
 telegram:
-  api-key: 6665204650:AAH81vmiVE2YvnD7GWhw8vMP7SbAgj5E8II
+  api-key: ${api-key}
 stickers:
   gachi: [ CAACAgIAAxkBAQABIH9lWID-QXtu1H0ldClCmKymWnQOdwACbxYAAg2pAUj2ZN0NwJMQIDME,
            CAACAgIAAxkBAQABIINlWIEExMv0QYgQ6vJsWpsQ35KS2QACNRIAAlbWCUhVwiQqqj_qfjME,
